@@ -6,8 +6,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +30,7 @@ public class MainFrame extends JFrame implements ActionListener{
     public MainFrame(){
         super();
         exiter = new JButton("Exit");
+        exiter.addActionListener(this);
         easy = new JButton("Easy");
         easy.addActionListener(this);
         
@@ -41,18 +45,22 @@ public class MainFrame extends JFrame implements ActionListener{
         buttonPanel.add(medium);
         buttonPanel.add(hard);
         
-        title = new JLabel("Cure.INC", SwingConstants.CENTER);
-        
+        title = new JLabel("Cure Inc.", SwingConstants.CENTER);
+        java.net.URL logoPic = getClass().getResource("1.png");
+       
+        ImageIcon logo = new ImageIcon(new ImageIcon(logoPic).getImage().getScaledInstance(600, 500, Image.SCALE_DEFAULT));
         title.setFont(LABEL_1_FONT);
-        
+        JLabel pic = new JLabel(logo, SwingConstants.CENTER);
+        pic.setBackground(LIGHT_BLUE);
         easy.setPreferredSize(new Dimension(150, 80));
         medium.setPreferredSize(new Dimension(150, 80));
         hard.setPreferredSize(new Dimension(150, 80));
-         
+        buttonPanel.add(exiter);
+        exiter.setPreferredSize(new Dimension(150, 80));
         this.setLayout(new BorderLayout());
         this.add(title, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.CENTER);
-        this.add(exiter, BorderLayout.SOUTH);
+        this.add(pic, BorderLayout.SOUTH);
         buttonPanel.setBackground(LIGHT_BLUE);
         
        
@@ -81,7 +89,7 @@ public class MainFrame extends JFrame implements ActionListener{
             GameFrame hardMode = new GameFrame(1.006, .04);
             this.dispose();
         }else if(command.equals("Exit")){
-            this.dispose();
+            System.exit(0);
         }
         
     }
